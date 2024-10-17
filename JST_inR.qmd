@@ -12,7 +12,7 @@ editor: visual
 
 # Overview
 
-This walkthrough is to provide description and explanation to R scripts used in the development of the J. Strom Thurmond Dam Hydrologic Hazard Curve (HHC). The readme file's contained in the project folder provide a summary of various scripts. Algorithm development is an iterative process so there is not one centralized script. The document will incorporate the contents of several scripts developed for the HHC. R is an open source, free software. All the libraries/functions used have extensive information online on their use and trouble shooting.
+This walkthrough is to provide a description of R scripts/files used in the development of the J. Strom Thurmond Dam Hydrologic Hazard Curve (HHC). The readme files contained in the project folder provide a summary of various scripts. Algorithim development is an iterative process, so there was not a singular centralized script. The document will incorporate the contents of several scripts developed for the HHC. R is an open source, free software. All the libraries/functions used have extensive information online on their use and trouble shooting.
 
 ## Period of Record Data Analysis
 
@@ -48,7 +48,7 @@ library(zoo)
 source("E:/R/theme_USACE.r")
 ```
 
-The next step is to read the delimited test files containing the POR data. These are all saved in the same folder which is *pordir*. Note that the data should be in .csv or .txt files. R can read excel files, but it isn't as simple as read.csv/read.table
+The next step is to read the delimited test files containing the POR data. These are all saved in the same folder which is *pordir*. Note that the data should be in .csv or .txt files.
 
 ```{r import data}
 # Read files ###################################################################
@@ -94,7 +94,7 @@ thur_flows <- thur_flows %>% select (-c(DOW))
 thur_stor <- thur_stor %>% select (-c(DOW))
 ```
 
-The date field will be very important for the analysis. R has read the date field as a character data-type. This means there is no numerical basis to the values (the dates are just words). The dates need to be converted a date data-type for this analysis. For example, once the dates are formatted correctly, they can be arranged by increasing date. This is done using the *as.Date* function. Errors can arise when the dates are not formatted uniformly. The function allows several "try" inputs for cases like that. Another breakdown of the pipe operator is shown above the code block:
+The date field will be very important for the analysis. Initially, it is common for R to read the date field as a character data-type. This means there is no numerical basis to the values (the dates are just words). The dates need to be converted a date data-type for this analysis. For example, once the dates are formatted correctly, they can be arranged by increasing date. This is done using the *as.Date* function. Errors can arise when the dates are not formatted uniformly. The function allows several "try" inputs for cases like that. Another breakdown of the pipe operator is shown above the code block:
 
 *thur_flows_updated* = *thur_flows_existing* + a new DATE column (*mutate*), called *DT*, that will go before *NetInflow*
 
@@ -119,7 +119,7 @@ thur_flows <- thur_flows %>% arrange(DT)
 thur_stor <- thur_stor %>% arrange(DT)
 ```
 
-An advantage to using R instead of excel is the ability to do column-wide functions without click & drag. The elevation data needs to be in NAVD88. The conversion from NGVD29 to NAVD88 is: $$ NAVD88 = NGVD29 - 0.7$$
+An advantage of using R instead of excel is the ability to do column-wide functions without click & drag. The elevation data needs to be in NAVD88. The conversion from NGVD29 to NAVD88 is: $$ NAVD88 = NGVD29 - 0.7$$
 
 ```{r elev88}
 # Create a new dataframe (df) for NAVD88 elevation
